@@ -19,9 +19,10 @@
   ansible.builtin.service:
     name: nessusd
     state: started
+    enabled: yes
 
 - name: Remove rpm-file
-  file:
+  ansible.builtin.file:
     path: "{{ rpm_file_dst }}"
     state: absent
   
