@@ -1,0 +1,4 @@
+---
+nessus_package: "Nessus-10.9.2-el8.x86_64.rpm"
+rpm_file_src: "/tmp/{{ nessus_package }}"
+rpm_file_dst: "/tmp/Nessus.rpm"
