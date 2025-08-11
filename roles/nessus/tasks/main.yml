@@ -1,0 +1,30 @@
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Transfer Nessus.rpm from local host to remote host
+  ansible.builtin.copy:
+    src: "{{ rpm_file_src }}"
+    dest: "{{ rpm_file_dst }}"
+    mode: '0644'
+
+- name: Upgrade Nessus from a local file
+  ansible.builtin.dnf:
+    name: "{{ rpm_file_dst }}"
+    state: latest
+    disable_gpg_check: true
+
+- name: Start nessusd.service
+  ansible.builtin.service:
+    name: nessusd
+    state: started
+
+- name: Remove rpm-file
+  file:
+    path: "{{ rpm_file_dst }}"
+    state: absent
+  
+- name: Reboot remote host
+  ansible.builtin.reboot:
+    reboot_timeout: 120
