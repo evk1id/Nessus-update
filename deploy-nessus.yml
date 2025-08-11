@@ -1,0 +1,5 @@
+- name: Install Nessus
+  hosts: "{{ target | default('nessus_scanner') }}"  # hosts: nessus_scanner
+  become: yes  
+  roles:
+    - role: nessus
